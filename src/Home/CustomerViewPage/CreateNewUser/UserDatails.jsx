@@ -19,6 +19,7 @@ import {
   TableBody,
   Table,
   TableCell,
+  useMediaQuery,
 } from "@mui/material";
 import {
   AccountBalance as AccountBalanceIcon,
@@ -61,7 +62,6 @@ const UserDatails = () => {
   const [passedData, setPassedData] = useState(false);
 
   const { getStored } = useContext(GlobalContext);
-  const theme = useTheme();
 
   useEffect(() => {
     const getuserFromLocalStorage = localStorage.getItem("user_data");
@@ -94,6 +94,7 @@ const UserDatails = () => {
     }
   }, []);
 
+  const matches = useMediaQuery("(max-width:886px)");
   const UserDetailsPage = () => {
     return (
       <>
@@ -135,7 +136,7 @@ const UserDatails = () => {
                         sm={8}
                         sx={{ display: "flex", flexDirection: "row" }}
                       >
-                        <Grid md={6}>
+                        <Grid md={matches ? 12 : 6}>
                           <Box
                             display={"flex"}
                             justifyContent={"center"}
@@ -143,6 +144,8 @@ const UserDatails = () => {
                             flexDirection={"column"}
                             gap={2}
                             mr={2}
+                            width={"100%"}
+                            ml={matches ? 2 : null}
                           >
                             <Table>
                               <TableBody>
@@ -225,11 +228,98 @@ const UserDatails = () => {
                                   </Typography>
                                 </TableCell>
                               </TableBody>
+                              {matches ? (
+                                <>
+                                  <TableBody>
+                                    <TableCell>
+                                      <Typography
+                                        variant="subtitle1"
+                                        fontSize={15}
+                                        fontWeight={10}
+                                      >
+                                        ADDRESS
+                                      </Typography>
+                                    </TableCell>
+                                    <TableCell>
+                                      <Typography
+                                        variant="subtitle2"
+                                        fontSize={16}
+                                        fontWeight={3}
+                                      >
+                                        {item?.address}
+                                      </Typography>
+                                    </TableCell>
+                                  </TableBody>
+                                  <TableBody>
+                                    <TableCell>
+                                      <Typography
+                                        variant="subtitle1"
+                                        fontSize={15}
+                                        fontWeight={10}
+                                      >
+                                        ACCOUNT TYPE
+                                      </Typography>
+                                    </TableCell>
+                                    <TableCell>
+                                      <Typography
+                                        variant="subtitle2"
+                                        fontSize={16}
+                                        fontWeight={3}
+                                      >
+                                        {item?.acType}
+                                      </Typography>
+                                    </TableCell>
+                                  </TableBody>
+                                  <TableBody>
+                                    <TableCell>
+                                      <Typography
+                                        variant="subtitle1"
+                                        fontSize={15}
+                                        fontWeight={10}
+                                      >
+                                        MARRIED
+                                      </Typography>
+                                    </TableCell>
+                                    <TableCell>
+                                      <Typography
+                                        variant="subtitle2"
+                                        fontSize={16}
+                                        fontWeight={3}
+                                      >
+                                        {item?.married}
+                                      </Typography>
+                                    </TableCell>
+                                  </TableBody>
+                                  <TableBody>
+                                    <TableCell>
+                                      <Typography
+                                        variant="subtitle1"
+                                        fontSize={15}
+                                        fontWeight={10}
+                                      >
+                                        NOMINEE
+                                      </Typography>
+                                    </TableCell>
+                                    <TableCell>
+                                      <Typography
+                                        variant="subtitle2"
+                                        fontSize={16}
+                                        fontWeight={3}
+                                      >
+                                        {item?.nominee}
+                                      </Typography>
+                                    </TableCell>
+                                  </TableBody>
+                                </>
+                              ) : null}
                             </Table>
                           </Box>
                         </Grid>
-                        <Divider orientation="vertical" sx={{ mt: 5 }} />
-                        <Grid md={6}>
+                        {matches ? null : (
+                          <Divider orientation="vertical" sx={{ mt: 5 }} />
+                        )}
+
+                        <Grid md={matches ? 6 : null}>
                           <Box
                             display={"flex"}
                             justifyContent={"center"}
@@ -238,88 +328,90 @@ const UserDatails = () => {
                             gap={2}
                             ml={2}
                           >
-                            <Table>
-                              <TableBody>
-                                <TableCell>
-                                  <Typography
-                                    variant="subtitle1"
-                                    fontSize={15}
-                                    fontWeight={10}
-                                  >
-                                    ADDRESS
-                                  </Typography>
-                                </TableCell>
-                                <TableCell>
-                                  <Typography
-                                    variant="subtitle2"
-                                    fontSize={16}
-                                    fontWeight={3}
-                                  >
-                                    {item?.address}
-                                  </Typography>
-                                </TableCell>
-                              </TableBody>
-                              <TableBody>
-                                <TableCell>
-                                  <Typography
-                                    variant="subtitle1"
-                                    fontSize={15}
-                                    fontWeight={10}
-                                  >
-                                    ACCOUNT TYPE
-                                  </Typography>
-                                </TableCell>
-                                <TableCell>
-                                  <Typography
-                                    variant="subtitle2"
-                                    fontSize={16}
-                                    fontWeight={3}
-                                  >
-                                    {item?.acType}
-                                  </Typography>
-                                </TableCell>
-                              </TableBody>
-                              <TableBody>
-                                <TableCell>
-                                  <Typography
-                                    variant="subtitle1"
-                                    fontSize={15}
-                                    fontWeight={10}
-                                  >
-                                    MARRIED
-                                  </Typography>
-                                </TableCell>
-                                <TableCell>
-                                  <Typography
-                                    variant="subtitle2"
-                                    fontSize={16}
-                                    fontWeight={3}
-                                  >
-                                    {item?.married}
-                                  </Typography>
-                                </TableCell>
-                              </TableBody>
-                              <TableBody>
-                                <TableCell>
-                                  <Typography
-                                    variant="subtitle1"
-                                    fontSize={15}
-                                    fontWeight={10}
-                                  >
-                                    NOMINEE
-                                  </Typography>
-                                </TableCell>
-                                <TableCell>
-                                  <Typography
-                                    variant="subtitle2"
-                                    fontSize={16}
-                                    fontWeight={3}
-                                  >
-                                    {item?.nominee}
-                                  </Typography>
-                                </TableCell>
-                              </TableBody>
-                            </Table>
+                            {matches ? null : (
+                              <Table>
+                                <TableBody>
+                                  <TableCell>
+                                    <Typography
+                                      variant="subtitle1"
+                                      fontSize={15}
+                                      fontWeight={10}
+                                    >
+                                      ADDRESS
+                                    </Typography>
+                                  </TableCell>
+                                  <TableCell>
+                                    <Typography
+                                      variant="subtitle2"
+                                      fontSize={16}
+                                      fontWeight={3}
+                                    >
+                                      {item?.address}
+                                    </Typography>
+                                  </TableCell>
+                                </TableBody>
+                                <TableBody>
+                                  <TableCell>
+                                    <Typography
+                                      variant="subtitle1"
+                                      fontSize={15}
+                                      fontWeight={10}
+                                    >
+                                      ACCOUNT TYPE
+                                    </Typography>
+                                  </TableCell>
+                                  <TableCell>
+                                    <Typography
+                                      variant="subtitle2"
+                                      fontSize={16}
+                                      fontWeight={3}
+                                    >
+                                      {item?.acType}
+                                    </Typography>
+                                  </TableCell>
+                                </TableBody>
+                                <TableBody>
+                                  <TableCell>
+                                    <Typography
+                                      variant="subtitle1"
+                                      fontSize={15}
+                                      fontWeight={10}
+                                    >
+                                      MARRIED
+                                    </Typography>
+                                  </TableCell>
+                                  <TableCell>
+                                    <Typography
+                                      variant="subtitle2"
+                                      fontSize={16}
+                                      fontWeight={3}
+                                    >
+                                      {item?.married}
+                                    </Typography>
+                                  </TableCell>
+                                </TableBody>
+                                <TableBody>
+                                  <TableCell>
+                                    <Typography
+                                      variant="subtitle1"
+                                      fontSize={15}
+                                      fontWeight={10}
+                                    >
+                                      NOMINEE
+                                    </Typography>
+                                  </TableCell>
+                                  <TableCell>
+                                    <Typography
+                                      variant="subtitle2"
+                                      fontSize={16}
+                                      fontWeight={3}
+                                    >
+                                      {item?.nominee}
+                                    </Typography>
+                                  </TableCell>
+                                </TableBody>
+                              </Table>
+                            )}
                           </Box>
                         </Grid>
                       </Grid>
