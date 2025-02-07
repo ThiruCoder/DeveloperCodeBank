@@ -50,14 +50,19 @@ function MoneyTransferPage({ transData }) {
   const [completeTrx, setCompleteTrx] = useState(false);
   const [confirmTrx, setConfirmTrx] = useState(false);
 
-  const { loginUserData, getStored, getStoreKeys } = useContext(GlobalContext);
+  const { currentUser, getStored, getStoreKeys } = useContext(GlobalContext);
 
   const navigate = useNavigate();
   useEffect(() => {
-    const data = [];
-    data.push(loginUserData);
-    setFilteredData(data);
-  }, [loginUserData]);
+    const getLocalStore = localStorage.getItem("user_data");
+    const parsedData = JSON.parse(getLocalStore);
+
+    const filtering = getStored.find(
+      (ite) => ite.Ac_number === parsedData?.Ac_number
+    );
+    const convertToArray = Array.isArray(filtering) ? filtering : [filtering];
+    setFilteredData(convertToArray);
+  }, [currentUser, getStored]);
 
   async function TransferCustomers({ filteredData, getStored }) {
     if (!filteredData || filteredData === "" || filteredData === null) {
@@ -149,7 +154,6 @@ function MoneyTransferPage({ transData }) {
         .includes(recipient.toLowerCase())
     );
     setFilteredObj(isIncludes);
-    console.log("isIncludes:", filteredObj);
 
     if (fullName === -1) {
       setIsResValid(false);
@@ -281,7 +285,6 @@ function MoneyTransferPage({ transData }) {
   }, [recipient, userData, confirmTrx]);
 
   const filteringForButton = userData.filter((ite) => ite.length >= 3);
-  console.log(filteringForButton);
 
   // =================== Transfer Data Code End here ==========================
 
