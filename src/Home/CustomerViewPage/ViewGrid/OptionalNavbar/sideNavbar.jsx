@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useSpring, animated } from "react-spring";
 
 import {
@@ -26,10 +26,12 @@ import {
 } from "@mui/icons-material";
 import logo from "../assets/logo.png";
 import { useNavigate } from "react-router-dom";
+import { GlobalContext } from "../Context/Context";
+import { doSignOut } from "../../../../Main-Redux/FireBase/FirebaseAuth";
 
 export default function SideNavbar() {
   const [open, setOpen] = useState(false);
-
+  const { setUserLoggedIn } = useContext(GlobalContext);
   const menuItems = [
     { text: "User Deetails", icon: <Person />, to: "/userDatails" },
     {

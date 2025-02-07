@@ -1,9 +1,11 @@
 import { Box, Button, Grid, Link, Paper, Typography } from "@mui/material";
-import React from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useContext } from "react";
+import { Navigate, useNavigate } from "react-router-dom";
+import { GlobalContext } from "./CustomerViewPage/ViewGrid/Context/Context";
 
 const NoPageFound = () => {
   const navigate = useNavigate();
+  const { userLoggedIn } = useContext(GlobalContext);
   return (
     <>
       <Paper>
@@ -23,8 +25,12 @@ const NoPageFound = () => {
             <Typography>No page found</Typography>
           </Box>
           <Box my={3}>
-            <Button onClick={() => navigate("/home")} variant="contained">
-              Move to Home
+            <Navigate to={userLoggedIn ? "/home" : "/"} replace />
+            <Button
+              onClick={() => navigate(userLoggedIn ? "/home" : "/")}
+              variant="contained"
+            >
+              Move to {userLoggedIn ? "Home" : "LogIn"}
             </Button>
           </Box>
         </Box>

@@ -69,10 +69,7 @@ function App() {
         {/* 🔹 ADMIN DIPOSIT PAGE */}
 
         {/* 🔹 WILDCARD ROUTE (Redirect Users) */}
-        <Route
-          path="*"
-          element={<Navigate to={userLoggedIn ? "/home" : "/"} replace />}
-        />
+        <Route path="*" element={<NoPageFound />} />
       </Routes>
     </>
   );
